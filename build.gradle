@@ -5,9 +5,7 @@ plugins {
 }
 
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
+
 
 subprojects {
     apply plugin: 'java'
@@ -24,8 +22,19 @@ subprojects {
 
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
+
         implementation 'org.springframework.boot:spring-boot-starter-aop'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
     }
 
 }
@@ -41,6 +50,8 @@ project(':core') {
 }
 
 project(':ui') {
-
+    dependencies {
+        implementation project(path: ':core', configuration: 'default')
+    }
 
 }
