@@ -16,4 +16,9 @@ public class HealthCheckController {
                 .name("iron man")
                 .build();
     }
+
+    @GetMapping
+    public String get() {
+        return "뭘 봐.";
+    }
 }
