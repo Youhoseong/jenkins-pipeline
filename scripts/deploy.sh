@@ -2,14 +2,14 @@
 
 is_stop () {
     limit=0
-    while [ "$limit" -lt 30 ]
+    while [ "$limit" -lt 15 ]
     do
         limit=$(expr $limit + 1)
-        sleep 1
         kill -0 $1 2> /dev/null
         if [ $? -ne 0 ] ;then
           return 1
         fi
+        sleep 1
     done
     return 0
 }
