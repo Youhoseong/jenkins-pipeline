@@ -49,7 +49,7 @@ pipeline {
                                                     sshTransfer(
                                                             sourceFiles: "${PJ_NAME}/build/libs/*.jar",
                                                             removePrefix: "${PJ_NAME}/build/libs",
-                                                            execCommand: "sh scripts/deploy.sh"
+                                                            execCommand: "sh ./scripts/deploy.sh"
                                                     )
                                             ])
                             ])
