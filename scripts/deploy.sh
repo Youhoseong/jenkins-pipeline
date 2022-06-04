@@ -10,7 +10,7 @@ echo "> There is no running application."
 
 else
     echo "> kill -9 $CURRENT_PID"
-    kill -9 $PID
+    kill -9 $CURRENT_PID
     sleep 10
 fi
 
