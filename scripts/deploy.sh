@@ -41,7 +41,7 @@ nohup java -jar /home/ubuntu/$1-0.0.1-SNAPSHOT.jar >> running.log &
 NEW_PID=$!
 echo "> NEW APP PID :: $NEW_PID"
 
-is_alive $NEW_PID
+is_stop $NEW_PID
 if [ $? -eq 1 ];then
   echo "> Process abnormally stopped.."
   cat running.log
