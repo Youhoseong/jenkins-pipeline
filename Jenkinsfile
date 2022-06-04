@@ -17,24 +17,24 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        ./gradlew :ui:clean :ui:bootJar
+                        ./gradlew :ui:clean :${PJ_NAME}:bootJar
                     '''
                 }
 
             }
         }
 
-        stage('Docker Push') {
-            steps {
-                script {
-                    sh ''' 
-                        cd ui/
-                        docker build -t youhoseong/${PJ_NAME} .
-                        docker push youhoseong/${PJ_NAME}
-                    '''
-                }
-            }
-        }
+//        stage('Docker Push') {
+//            steps {
+//                script {
+//                    sh '''
+//                        cd ${PJ_NAME}/
+//                        docker build -t youhoseong/${PJ_NAME} .
+//                        docker push youhoseong/${PJ_NAME}
+//                    '''
+//                }
+//            }
+//        }
 
         stage('SSH transfer') {
             steps {
@@ -52,7 +52,7 @@ pipeline {
                                                     sshTransfer(
                                                             sourceFiles: "${PJ_NAME}/build/libs/*.jar",
                                                             removePrefix: "${PJ_NAME}/build/libs",
-                                                            execCommand: "sh scripts/deploy.sh"
+                                                            execCommand: "sh scripts/deploy.sh ${PJ_NAME} "
                                                     )
                                             ])
                             ])
