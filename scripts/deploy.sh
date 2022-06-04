@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "> Auto Deploy Starting...."
+echo "> Auto deploy starting...."
 
 CURRENT_PID=`cat ui.pid`
 
@@ -15,7 +15,7 @@ else
 fi
 
 echo "> Do Deploy..."
-nohup java -jar ${PJ_NAME}-0.0.1-SNAPSHOT.jar >> running.log &
+nohup java -jar /home/ubuntu/${PJ_NAME}-0.0.1-SNAPSHOT.jar >> running.log &
 
 cat running.log
 
