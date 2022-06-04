@@ -14,7 +14,7 @@ else
     sleep 10
 fi
 
-echo "> Do Deploy..."
+echo "> do deploy :: ${PJ_NAME}"
 nohup java -jar /home/ubuntu/${PJ_NAME}-0.0.1-SNAPSHOT.jar >> running.log &
 
 cat running.log
