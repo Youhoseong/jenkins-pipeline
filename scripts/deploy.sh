@@ -1,4 +1,20 @@
 #!/bin/bash
+
+is_stop () {
+    limit=0
+    while [ "$limit" -lt 30 ]
+    do
+        limit=$(expr $limit + 1)
+        sleep 1
+        kill -0 $1 2> /dev/null
+        if [ $? -ne 0 ] ;then
+          return 1
+        fi
+    done
+    return 0
+}
+
+
 echo "> Auto deploy starting...."
 
 CURRENT_PID=`cat ui.pid`
@@ -12,21 +28,8 @@ else
     echo "> $CURRENT_PID will be stopped"
     kill -15 $CURRENT_PID 2> /dev/null
 
-
-    limit=0
-    stopped=0
-    while [ "$limit" -lt 30 ]
-    do
-        limit=$(expr $limit + 1)
-        sleep 1
-        kill -0 $CURRENT_PID 2> /dev/null
-        if [ $? -ne 0 ] ;then
-          stopped=1
-          break
-        fi
-    done
-
-    if [ $stopped -eq 0 ];then
+    is_stop $CURRENT_PID
+    if [ $? -eq 0 ]; then
         echo "> Force stop ! !"
         kill -9 $PID
     fi
@@ -38,6 +41,11 @@ nohup java -jar /home/ubuntu/$1-0.0.1-SNAPSHOT.jar >> running.log &
 NEW_PID=$!
 echo "> NEW APP PID :: $NEW_PID"
 
-cat running.log
+is_alive $NEW_PID
+if [ $? -eq 1 ];then
+  echo "> Process abnormally stopped.."
+  cat running.log
+  exit 1
+fi
 
 echo "> Deploy Complete ! !"
