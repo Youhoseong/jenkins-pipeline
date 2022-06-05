@@ -1,5 +1,7 @@
 #!/bin/bash
 
+JAVA_OPT='-Djava.security.egd=file:///dev/urandom'
+
 is_stop () {
     limit=0
     while [ "$limit" -lt 15 ]
@@ -37,7 +39,7 @@ fi
 
 echo "> Do deploy :: $1"
 
-nohup java -jar /home/ubuntu/$1-0.0.1-SNAPSHOT.jar >> running.log &
+nohup java $JAVA_OPT -jar /home/ubuntu/$1-0.0.1-SNAPSHOT.jar >> running.log &
 NEW_PID=$!
 echo "> NEW APP PID :: $NEW_PID"
 
