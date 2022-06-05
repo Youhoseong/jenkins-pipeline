@@ -19,7 +19,7 @@ is_stop () {
 
 echo "> Auto deploy starting...."
 
-CURRENT_PID=`cat ui.pid`
+CURRENT_PID=`cat $1.pid`
 
 echo "> OLD APP PID :: $CURRENT_PID"
 
