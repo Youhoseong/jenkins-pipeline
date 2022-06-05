@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        ./gradlew :ui:clean :${PJ_NAME}:bootJar
+                        ./gradlew :${PJ_NAME}:clean :${PJ_NAME}:bootJar
                     '''
                 }
 
